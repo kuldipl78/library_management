@@ -100,6 +100,19 @@ def add_book():
     except Exception as e:
         return jsonify({'error': str(e)}),
 
+
+@app.route('/books', methods=['GET'])
+def get_books():
+    try:
+        conn = mysql.connection
+        cursor = conn.cursor(dictionary=True)
+        query = "SELECT * FROM books"
+        cursor.execute(query)
+        books = cursor.fetchall()
+        return jsonify(books), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}),
+        
 @app.route('/books', methods=['GET'])
 def get_books():
     try:
